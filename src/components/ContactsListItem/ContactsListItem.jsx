@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { BsPersonFill, BsTrash, BsTelephoneFill } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import { Item, RemoveBtn } from './ContactListItem.styled';
-import { delateContact } from '../../redux/redux';
+import { delateContact } from '../../redux/store';
 
 export const ContactListItem = ({ contact }) => {
   const dispatch = useDispatch();

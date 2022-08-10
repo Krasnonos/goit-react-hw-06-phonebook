@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { nanoid } from 'nanoid';
 import { Formik } from 'formik';
-import { addContact } from '../../redux/redux';
+import { addContact } from '../../redux/store';
 import {
   FormBox,
   InputName,
@@ -11,7 +11,7 @@ import {
 } from './PhoneBookForm.styled';
 
 export const PhoneBookForm = () => {
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(state => state.contacts.items);
   const dispatch = useDispatch();
 
   const submitForm = (e, { resetForm }) => {
