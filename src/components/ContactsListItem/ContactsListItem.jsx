@@ -1,15 +1,22 @@
 import PropTypes from 'prop-types';
 import { BsPersonFill, BsTrash, BsTelephoneFill } from 'react-icons/bs';
+import { useDispatch } from 'react-redux';
 import { Item, RemoveBtn } from './ContactListItem.styled';
+import { delateContact } from '../../redux/redux';
 
-export const ContactListItem = ({ item, delateContact }) => {
+export const ContactListItem = ({ contact }) => {
+  const dispatch = useDispatch();
+
   return (
     <Item>
       <BsPersonFill />
-      <p>name: {item.name}</p>
+      <p>name: {contact.name}</p>
       <BsTelephoneFill />
-      <p>number: {item.number}</p>
-      <RemoveBtn type="button" onClick={() => delateContact(item.id)}>
+      <p>number: {contact.number}</p>
+      <RemoveBtn
+        type="button"
+        onClick={() => dispatch(delateContact(contact.id))}
+      >
         Delate <BsTrash />
       </RemoveBtn>
     </Item>
@@ -17,6 +24,5 @@ export const ContactListItem = ({ item, delateContact }) => {
 };
 
 ContactListItem.propTypes = {
-  delateContact: PropTypes.func,
-  item: PropTypes.objectOf(PropTypes.string),
+  contact: PropTypes.objectOf(PropTypes.string),
 };

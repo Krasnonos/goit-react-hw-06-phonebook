@@ -1,5 +1,8 @@
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { nanoid } from 'nanoid';
 import { Formik } from 'formik';
+import { addContact } from '../../redux/redux';
 import {
   FormBox,
   InputName,
@@ -7,7 +10,33 @@ import {
   SubmitBtn,
 } from './PhoneBookForm.styled';
 
-export const PhoneBookForm = ({ submitForm }) => {
+export const PhoneBookForm = () => {
+  const contacts = useSelector(state => state.contacts);
+  const dispatch = useDispatch();
+
+  const submitForm = (e, { resetForm }) => {
+    const { name, number } = e;
+
+    const isInclude = contacts.find(
+      person => person.name.toLowerCase() === name.toLowerCase()
+    );
+
+    if (isInclude) {
+      toast(` ${name} is already in contacts.`);
+      return;
+    }
+
+    const profile = {
+      id: nanoid(),
+      name,
+      number,
+    };
+
+    dispatch(addContact(profile));
+
+    resetForm();
+  };
+
   return (
     <Formik initialValues={{ name: '', number: '' }} onSubmit={submitForm}>
       <FormBox>
@@ -35,8 +64,4 @@ export const PhoneBookForm = ({ submitForm }) => {
       </FormBox>
     </Formik>
   );
-};
-
-PhoneBookForm.propTypes = {
-  submitForm: PropTypes.func,
 };
