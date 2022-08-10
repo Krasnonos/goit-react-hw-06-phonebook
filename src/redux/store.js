@@ -22,7 +22,7 @@ const contactsSlice = createSlice({
       state.items.push(action.payload);
     },
     delateContact: (state, action) => {
-      state.items.filter(({ id }) => id !== action.payload);
+      state.items = state.items.filter(({ id }) => id !== action.payload);
     },
     changeFilter: (state, action) => {
       state.filter = action.payload;
